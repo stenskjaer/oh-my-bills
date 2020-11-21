@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pytest = "*"
+sklearn = "*"
+numpy = "*"
+scipy = "*"
+sparse-dot-topn = "*"
+jupyter = "*"
+nltk = "*"
+pandas = "*"
+mpld3 = "*"
+sns = "*"
+seaborn = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"
