@@ -37,10 +37,10 @@ class TrigramSimilarity:
         return most_similar
 
     def _run_comparison(
-        self, present: Comparable, others: List[Comparable]
+        self, present: Comparable, all: List[Comparable]
     ) -> Dict[Comparable, float]:
-        res = {present: 1.0}
-        for other in others:
+        res = {}
+        for other in all:
             self.has_comparandum(other)
             quotient = self._similarity(present.comparandum(), other.comparandum())
             res[other] = quotient

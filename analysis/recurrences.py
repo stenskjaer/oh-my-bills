@@ -1,4 +1,4 @@
-from typing import List, Set
+from typing import List, Set, Dict
 
 from analysis.comparator import TrigramSimilarity, Comparator
 from receiver.transactions import Comparable
@@ -17,22 +17,32 @@ class RecurringCalculator:
         comparator: Comparator = TrigramSimilarity(),
     ):
         self.comparator = comparator
-        self.similarity_cache: Set[str] = set()
 
     def find_similar(self, transactions: List[Comparable]) -> List[List[Comparable]]:
+        """Collects lists of transactions that are textually similar.
+
+        Items that don't have any similarity sibling in the list of transactions will
+        not be included in the result.
+
+        The `comparator` returns a collection of all similar entries, which means
+        that once an entry has been included once, we shouldn't include it again.
+        That would result in duplicate collections. So before running comparisons on
+        an item, we check that it hasn't already been done in another connection.
+        """
+        similarity_calculated: Set[str] = set()
         similar: List[List[Comparable]] = []
 
         for trans in transactions:
-            # Skip calculation if already computed
-            if trans.comparandum() in self.similarity_cache:
+            if trans.comparandum() in similarity_calculated:
                 continue
 
             similar_transactions = self.comparator.compare(trans, transactions)
 
-            self.similarity_cache.update(
-                [t.comparandum() for t in similar_transactions]
-            )
-            similar.append(similar_transactions)
+            if len(similar_transactions) > 1:
+                similarity_calculated.update(
+                    [t.comparandum() for t in similar_transactions]
+                )
+                similar.append(similar_transactions)
         return similar
 
     def find_recurrences(
