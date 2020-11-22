@@ -1,13 +1,9 @@
-from datetime import datetime
-from typing import List
-
 from dateutil import parser
 
 from receiver.transactions import Transaction
 
 
 class TestTransaction:
-
     date = parser.parse("03-02-2020", dayfirst=True)
     sut = Transaction("description", date)
 

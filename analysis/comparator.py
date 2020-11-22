@@ -3,7 +3,7 @@ from typing import List, Dict, Set
 
 import pandas as pd
 
-from receiver.transactions import Transaction, Comparable
+from receiver.transactions import Comparable
 
 
 class Comparator(ABC):
