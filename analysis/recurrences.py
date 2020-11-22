@@ -7,23 +7,23 @@ from receiver.transactions import Comparable, Datable
 
 
 class Recurring:
-    def __init__(self, members: List[Union[Comparable, Datable]], variance: float):
+    def __init__(
+        self, members: List[Union[Comparable, Datable]], variance: float
+    ) -> None:
         self.members = members
         self.variance = variance
-        self.interval = "calculate_interval()"
-        self.average_amount = "calculate_average()"
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return (self.members, self.variance) == (other.members, other.variance)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Recurring: members={self.members}, variance={self.variance}"
 
 
 class RecurringCalculator:
     """Calculates """
 
-    def __init__(self, comparator: Comparator = TrigramSimilarity()):
+    def __init__(self, comparator: Comparator = TrigramSimilarity()) -> None:
         self.comparator = comparator
 
     def find_recurrences(self, transactions: List[Comparable]) -> List[Recurring]:
