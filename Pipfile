@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pytest = "*"
 sklearn = "*"
 numpy = "*"
 scipy = "*"
@@ -18,7 +17,8 @@ seaborn = "*"
 
 [dev-packages]
 mypy = "*"
-black = "*"
+coverage = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.7"
