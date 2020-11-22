@@ -22,7 +22,7 @@ class TrigramSimilarity:
         scores = pd.Series(self._run_comparison(present, others))
         dev = scores.std()
         most_similar = scores[scores > dev]
-        return most_similar.index
+        return most_similar.index.tolist()
 
     def _run_comparison(
         self, present: Comparable, others: List[Comparable]
