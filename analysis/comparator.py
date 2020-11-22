@@ -22,9 +22,19 @@ class TrigramSimilarity:
         self.has_comparandum(present)
 
         scores = pd.Series(self._run_comparison(present, others))
+        most_similar = self._bigger_than_cutoff(scores)
+        return most_similar.index.tolist()
+
+    def _bigger_than_cutoff(self, scores: pd.Series) -> pd.Series:
+        """Identifies all the values that have a similarity scores bigger than the
+        first standard deviation from the mean. If they are all identical we return
+        everything.
+        """
+        if scores.mean() == 1.0:
+            return scores
         dev = scores.std()
         most_similar = scores[scores > dev]
-        return most_similar.index.tolist()
+        return most_similar
 
     def _run_comparison(
         self, present: Comparable, others: List[Comparable]
