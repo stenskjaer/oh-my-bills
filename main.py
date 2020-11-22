@@ -10,8 +10,10 @@ Steps for identification algorithm:
 Presenting data:
 API
 """
-from typing import List, Dict, Set
-from transactions import *
+from typing import List
+
+from analysis.recurrences import RecurringCalculator
+from receiver.transactions import Transaction
 
 # Test data
 descriptions = [
@@ -33,31 +35,10 @@ descriptions = [
     "Netflix Aps.",
 ]
 
-# Cache indicating whether this has one or more similar transactions.
-# If that is the case, then recurrence has already been calculated for it and we don't have to do it again.
-similarity_cache: Set[str] = set()
-
-recurring_entries: List[Recurring]
-
 # Let's create some entries
 transactions: List[Transaction] = []
 for desc in descriptions:
     transactions.append(Transaction(desc))
 
-
-for trans in transactions:
-    print("cache: ", similarity_cache)
-    # Skip if already computed
-    if trans.description in similarity_cache:
-        print(f"'{trans.description}' in cache, skipping computation")
-        continue
-    similars = trans.find_similars(transactions)
-    similar_desc = [t.description for t in similars]
-
-    # recurring_confidence = calculate_recurring()
-    # if (recurring_confidence > threshold):
-    #    Recurring(similars + trans, confidence)
-    print("adding to cache: ", similar_desc)
-    similarity_cache.update(similar_desc)
-
-assert similarity_cache == set(descriptions)
+calculator = RecurringCalculator(transactions)
+var = calculator.similars
