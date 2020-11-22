@@ -14,33 +14,31 @@ class Recurring:
 class RecurringCalculator:
     def __init__(
         self,
-        transactions: List[Comparable],
         comparator: Comparator = TrigramSimilarity(),
     ):
-        self.transactions = transactions
         self.comparator = comparator
         self.similarity_cache: Set[str] = set()
 
-    def find_similar(self) -> List[List[Comparable]]:
+    def find_similar(self, transactions: List[Comparable]) -> List[List[Comparable]]:
         similar: List[List[Comparable]] = []
 
-        for trans in self.transactions:
-            print("cache: ", self.similarity_cache)
-            # Skip if already computed
+        for trans in transactions:
+            # Skip calculation if already computed
             if trans.comparandum() in self.similarity_cache:
-                print(f"'{trans.comparandum()}' in cache, skipping computation")
                 continue
 
-            similar_transactions = self.comparator.compare(trans, self.transactions)
-            similar_descriptions = [t.comparandum() for t in similar_transactions]
+            similar_transactions = self.comparator.compare(trans, transactions)
 
-            print("adding to cache: ", similar_descriptions)
-            self.similarity_cache.update(similar_descriptions)
+            self.similarity_cache.update(
+                [t.comparandum() for t in similar_transactions]
+            )
             similar.append(similar_transactions)
         return similar
 
-    def find_recurrences(self) -> List[List[Comparable]]:
-        similar = self.find_similar()
+    def find_recurrences(
+        self, transactions: List[Comparable]
+    ) -> List[List[Comparable]]:
+        similar = self.find_similar(transactions)
         # recurring_confidence = calculate_recurring()
         # if (recurring_confidence > threshold):
         #    Recurring(similars + trans, confidence)
