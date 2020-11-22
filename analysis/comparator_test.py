@@ -41,6 +41,30 @@ class TestTrigramSimilarity:
         actual = self.sut.compare(present, others)
         assert actual == expect
 
+    def test_should_raise_on_empty_present(self):
+        present = FakeComparable("")
+        others = [
+            FakeComparable("hello"),
+        ]
+        with pytest.raises(ValueError) as e_info:
+            self.sut.compare(present, others)
+        assert (
+            str(e_info.value)
+            == "<FakeComparable: ''>.comparandum() cannot be an empty string."
+        )
+
+    def test_should_raise_on_empty_other(self):
+        present = FakeComparable("hello")
+        others = [
+            FakeComparable(""),
+        ]
+        with pytest.raises(ValueError) as e_info:
+            self.sut.compare(present, others)
+        assert (
+            str(e_info.value)
+            == "<FakeComparable: ''>.comparandum() cannot be an empty string."
+        )
+
 
 class FakeComparable(Comparable):
     def __init__(self, value):

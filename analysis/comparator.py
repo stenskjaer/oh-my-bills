@@ -19,6 +19,8 @@ class TrigramSimilarity:
     def compare(
         self, present: Comparable, others: List[Comparable]
     ) -> List[Comparable]:
+        self.has_comparandum(present)
+
         scores = pd.Series(self._run_comparison(present, others))
         dev = scores.std()
         most_similar = scores[scores > dev]
@@ -29,6 +31,7 @@ class TrigramSimilarity:
     ) -> Dict[Comparable, float]:
         res = {present: 1.0}
         for other in others:
+            self.has_comparandum(other)
             quotient = self._similarity(present.comparandum(), other.comparandum())
             res[other] = quotient
         return res
@@ -47,10 +50,13 @@ class TrigramSimilarity:
         return float(num_equal) / float(num_unique)
 
     @staticmethod
+    def has_comparandum(present):
+        if not present.comparandum():
+            raise ValueError(f"{present}.comparandum() cannot be an empty string.")
+
+    @staticmethod
     def _find_ngrams(text: str, size: int = 3) -> set:
         ngrams: Set[str] = set()
-        if not text:
-            return ngrams
 
         padded = f" {text} ".lower()
         for x in range(0, len(padded) - size + 1):
