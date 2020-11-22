@@ -27,7 +27,7 @@ class TrigramSimilarity:
     def _run_comparison(
         self, present: Comparable, others: List[Comparable]
     ) -> Dict[Comparable, float]:
-        res = {}
+        res = {present: 1.0}
         for other in others:
             quotient = self._similarity(present.comparandum(), other.comparandum())
             res[other] = quotient
