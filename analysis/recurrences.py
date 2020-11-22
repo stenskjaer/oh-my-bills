@@ -1,7 +1,7 @@
 from typing import List, Set
 
-from analysis.comparator import TrigramSimilarity
-from receiver.transactions import Transaction, Comparable
+from analysis.comparator import TrigramSimilarity, Comparator
+from receiver.transactions import Comparable
 
 
 class Recurring:
@@ -15,15 +15,14 @@ class RecurringCalculator:
     def __init__(
         self,
         transactions: List[Comparable],
-        comparator: TrigramSimilarity = TrigramSimilarity(),
+        comparator: Comparator = TrigramSimilarity(),
     ):
         self.transactions = transactions
         self.comparator = comparator
         self.similarity_cache: Set[str] = set()
-        self.recurrences = self.find_recurrences()
 
-    def find_similar(self) -> List[List[Transaction]]:
-        similar: List[List[Transaction]] = [[]]
+    def find_similar(self) -> List[List[Comparable]]:
+        similar: List[List[Comparable]] = []
 
         for trans in self.transactions:
             print("cache: ", self.similarity_cache)
@@ -45,4 +44,4 @@ class RecurringCalculator:
         # recurring_confidence = calculate_recurring()
         # if (recurring_confidence > threshold):
         #    Recurring(similars + trans, confidence)
-        pass
+        return similar
