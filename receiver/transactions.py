@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from datetime import datetime
 
 
 class Comparable(ABC):
@@ -7,17 +8,23 @@ class Comparable(ABC):
         pass
 
 
-class Transaction(Comparable):
+class Datable(ABC):
+    @abstractmethod
+    def date(self) -> datetime:
+        pass
+
+
+class Transaction(Comparable, Datable):
     """Transaction represents a single transaction from a bank statement."""
 
     def __init__(
         self,
         description: str,
+        date: datetime,
         amount=0,
-        date="",
     ) -> None:
         self.amount = amount
-        self.date = date
+        self.datetime = date
         self.description = description
         self.normalized_description = self.normalize(description)
 
@@ -28,6 +35,9 @@ class Transaction(Comparable):
         """Returns a representation of the transaction for identifying similar
         transactions."""
         return self.description
+
+    def date(self) -> datetime:
+        return self.datetime
 
     @staticmethod
     def normalize(description: str) -> str:

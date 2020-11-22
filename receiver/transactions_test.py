@@ -1,10 +1,15 @@
+from datetime import datetime
 from typing import List
+
+from dateutil import parser
 
 from receiver.transactions import Transaction
 
 
 class TestTransaction:
-    sut = Transaction("description")
+
+    date = parser.parse("03-02-2020", dayfirst=True)
+    sut = Transaction("description", date)
 
     def test_normalization(self):
         expect = "description"
@@ -17,3 +22,8 @@ class TestTransaction:
     def test_comparandum(self):
         expect = "description"
         assert self.sut.comparandum() == expect
+
+    def test_date(self):
+        expect = self.date
+        actual = self.sut.date()
+        assert actual == expect
