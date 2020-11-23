@@ -4,16 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-sklearn = "*"
-numpy = "*"
-scipy = "*"
-sparse-dot-topn = "*"
-jupyter = "*"
-nltk = "*"
 pandas = "*"
-mpld3 = "*"
-sns = "*"
-seaborn = "*"
 python-dateutil = "*"
 flask = "*"
 flask-restful = "*"
