@@ -41,7 +41,7 @@ class Transaction(Comparable, Datable):
 
     def __repr__(self) -> str:
         return (
-            f"<Transaction: description='{self.normalized_description}', "
+            f"<Transaction: description='{self.description}', "
             f"date={self.date()}, amount={self.amount}>"
         )
 

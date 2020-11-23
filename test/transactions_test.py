@@ -10,15 +10,30 @@ class TestTransaction:
     sut = Transaction(desc, date, amount)
 
     def test_normalization(self):
-        expect = "description"
+        expect = " description "
         assert self.sut.normalized_description == expect
+
+    def test_norm_visa_dankort(self):
+        sut = Transaction("Visa/Dankort transaction", self.date, self.amount)
+        expect = " transaction "
+        assert sut.normalized_description == expect
+
+    def test_norm_dankort(self):
+        sut = Transaction("Dankort transaction", self.date, self.amount)
+        expect = " transaction "
+        assert sut.normalized_description == expect
+
+    def test_norm_mobilepay(self):
+        sut = Transaction("MobilePay transaction", self.date, self.amount)
+        expect = " transaction "
+        assert sut.normalized_description == expect
 
     def test_repr(self):
         expect = "<Transaction: description='description', date=2020-02-03 00:00:00, amount=10.0>"
         assert self.sut.__repr__() == expect
 
     def test_comparandum(self):
-        expect = "description"
+        expect = " description "
         assert self.sut.comparandum() == expect
 
     def test_date(self):

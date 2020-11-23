@@ -51,7 +51,7 @@ class TestRecurringCalculator:
         input = [
             FakeTransaction("Netflix", "2020-10-01"),
             FakeTransaction("Netflix", "2020-09-15"),
-            FakeTransaction("Netflix", "2020-08-25"),
+            FakeTransaction("Netflix", "2020-08-30"),
         ]
         sut = RecurringCalculator(input, FakeComparator())
 
