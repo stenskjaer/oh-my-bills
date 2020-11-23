@@ -54,6 +54,8 @@ docker pull stenskjaer/oh-my-bills
 docker run -p 5000:5000 -t stenskjaer/oh-my-bills 
 ```
 
+Now you can visit the endoint `localhost:5000/recurring` to get an analysis result. Note that for privacy reasons the data provided in the public Docker image is not that rich.
+
 ## Provide you own data
 
 This example uses my default data. If you want to try with your own data, you can build a custom docker image and send in your own data as a CSV file.
