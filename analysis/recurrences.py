@@ -7,6 +7,8 @@ from receiver.transactions import Comparable, Datable
 
 
 class Recurring:
+    """Represents a collection of recurring payments that belong together."""
+
     def __init__(
         self, members: List[Union[Comparable, Datable]], variance: float
     ) -> None:
@@ -21,7 +23,7 @@ class Recurring:
 
 
 class RecurringCalculator:
-    """Calculates """
+    """Identifies recurring payments from a list of Transactions."""
 
     def __init__(
         self,
