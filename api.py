@@ -50,6 +50,6 @@ if __name__ == "__main__":
     logger.addHandler(handler)
     logger.setLevel(logging.DEBUG)
 
-    receiver = LsbReceiver("data/export-large.csv")
+    receiver = LsbReceiver("data/export.csv")
     transactions = receiver.decode()
     app.run(debug=True)
