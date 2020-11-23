@@ -10,3 +10,6 @@ htmlcov
 
 *.ipynb
 .coverage
+
+# private test data
+/data
