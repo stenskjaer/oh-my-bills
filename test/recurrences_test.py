@@ -4,7 +4,7 @@ from typing import List
 from dateutil import parser
 
 from analysis.comparator import Comparator
-from analysis.comparator_test import FakeComparable
+from test.comparator_test import FakeComparable
 from analysis.recurrences import RecurringCalculator, Recurring
 from receiver.transactions import Comparable, Datable
 
