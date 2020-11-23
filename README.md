@@ -3,6 +3,8 @@ Identifying recurring payments on the bank statement.
 
 _Oh My Bills_ takes a bank statement in CSV and identifies payments that are likely to be recurring. It provides an web API for getting results about input bank data.
 
+This is written in Python as a good prototyping language, but other languages could also be fun, for example Go, Scala, C# or whatever you like. 
+
 **This is a proof of concept**. It is meant to demonstrate the idea, and is not production ready. 
 
 This means: 
@@ -73,3 +75,13 @@ This means that a valid example CSV could look like this:
 "09-11-2020";"09-11-2020";"Example entry 1";"-2.123,00"
 "02-11-2020";"02-11-2020";"Example entry 2";"100,00"
 ```
+
+
+## Next steps
+
+Given that this is only a very minimal proof of concept, the first obvious next steps would be:
+1. Start a documentation of the API – for example with Swagger/OpenAPI.
+2. Create endpoints for providing data in a `POST` call.
+3. Refine the algorithm for identifying 
+3. Optimize performance on larger datasets. 
+4. Extend the modes of presentation and endpoints.
