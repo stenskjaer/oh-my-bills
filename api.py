@@ -10,6 +10,16 @@ from receiver.transactions import Transaction
 
 import logging
 
+logger = logging.getLogger(__name__)
+handler = logging.StreamHandler()
+formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.DEBUG)
+
+receiver = LsbReceiver("./data/export.csv")
+transactions = receiver.decode()
+
 
 class CustomEncoder(JSONEncoder):
     def default(self, obj):
@@ -28,8 +38,6 @@ app = Flask(__name__)
 app.json_encoder = CustomEncoder
 api = Api(app)
 
-transactions = []
-
 
 class GetRecurrences(Resource):
     @staticmethod
@@ -43,13 +51,4 @@ class GetRecurrences(Resource):
 api.add_resource(GetRecurrences, "/recurring")
 
 if __name__ == "__main__":
-    logger = logging.getLogger(__name__)
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.setLevel(logging.DEBUG)
-
-    receiver = LsbReceiver("data/export.csv")
-    transactions = receiver.decode()
     app.run(debug=True)
