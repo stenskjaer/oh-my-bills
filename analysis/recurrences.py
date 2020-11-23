@@ -46,7 +46,7 @@ class RecurringCalculator:
         for group in similar:
             if len(group) > 2:
                 distance = self._calculate_recurring(group)
-                if 0 < distance < 1:
+                if 0 < distance < 5:
                     recurring.append(Recurring(group, distance))
         return recurring
 
