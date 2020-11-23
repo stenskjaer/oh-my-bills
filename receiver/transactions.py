@@ -21,7 +21,7 @@ class Transaction(Comparable, Datable):
         self,
         description: str,
         date: datetime,
-        amount=0,
+        amount: float = 0.0,
     ) -> None:
         self.amount = amount
         self.datetime = date
