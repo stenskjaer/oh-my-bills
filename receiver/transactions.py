@@ -42,6 +42,9 @@ class Transaction(Comparable, Datable):
             other.amount,
         )
 
+    def __hash__(self):
+        return hash((self.description, str(self.date()), self.amount))
+
     def comparandum(self) -> str:
         """Returns a representation of the transaction for identifying similar
         transactions."""
