@@ -8,6 +8,8 @@ from analysis.recurrences import RecurringCalculator, Recurring
 from receiver.receiver import LsbReceiver
 from receiver.transactions import Transaction
 
+import logging
+
 
 class CustomEncoder(JSONEncoder):
     def default(self, obj):
@@ -41,6 +43,13 @@ class GetRecurrences(Resource):
 api.add_resource(GetRecurrences, "/recurring")
 
 if __name__ == "__main__":
-    receiver = LsbReceiver("data/export.csv")
+    logger = logging.getLogger(__name__)
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
+
+    receiver = LsbReceiver("data/export-large.csv")
     transactions = receiver.decode()
     app.run(debug=True)

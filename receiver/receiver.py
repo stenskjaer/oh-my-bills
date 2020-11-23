@@ -1,4 +1,5 @@
 import csv
+import logging
 from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import TextIO, IO, List
@@ -7,17 +8,7 @@ from dateutil import parser as dateutil_parser
 
 from receiver.transactions import Transaction
 
-
-import logging
-
-logger = logging.getLogger()
-handler = logging.StreamHandler()
-formatter = logging.Formatter("%(asctime)s %(name)-12s %(levelname)-8s %(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-logger.setLevel(logging.DEBUG)
-
-logger.debug("often makes a very good meal of %s", "visiting tourists")
+logger = logging.getLogger(__name__)
 
 
 class CsvDecoder(ABC):

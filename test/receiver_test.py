@@ -2,8 +2,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import List
 
-from dateutil import parser
-
 from receiver.receiver import LsbReceiver, CsvFileReader, IOReader
 from receiver.transactions import Transaction
 
