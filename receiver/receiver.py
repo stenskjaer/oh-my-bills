@@ -78,4 +78,4 @@ class LsbReceiver(CsvDecoder):
         return dateutil_parser.parse(value, dayfirst=True)
 
     def to_float(self, value: str) -> float:
-        return float(value.replace(",", "."))
+        return float(value.replace(".", "").replace(",", "."))

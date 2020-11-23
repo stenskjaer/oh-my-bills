@@ -44,6 +44,19 @@ class TestLsbReceiver:
 
         assert actual == expect
 
+    def test_should_decode_high_amount_correctly(self):
+        file_content = [
+            '"19-11-2020";"19-11-2020";"Entry 1";"5.269,00";"5.423,67"',
+        ]
+
+        sut = LsbReceiver("dummy-path", FakeCsvReader(file_content))
+        actual = sut.decode()
+        expect = [
+            Transaction("Entry 1", datetime(2020, 11, 19, 0, 0, 0, 0), 5269.00),
+        ]
+
+        assert actual == expect
+
     def test_should_skip_invalid_empty_field_with_warning(self):
         file_content = [
             '"19-11-2020";"19-11-2020";"Entry 1";"";"5.423,67"',
