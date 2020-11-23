@@ -16,10 +16,10 @@ class TestRecurringCalculator:
             FakeTransaction("Netflix", "2020-09-10"),
             FakeTransaction("Netflix", "2020-08-10"),
         ]
-        sut = RecurringCalculator(FakeComparator())
+        sut = RecurringCalculator(input, FakeComparator())
 
         expect = [Recurring(input, 0.293)]
-        actual = sut.find_recurrences(input)
+        actual = sut.find_recurrences()
         assert actual == expect
 
     def test_should_match_similar_three_months(self):
@@ -28,10 +28,10 @@ class TestRecurringCalculator:
             FakeTransaction("Netflix", "2020-09-10"),
             FakeTransaction("netflix", "2020-08-10"),
         ]
-        sut = RecurringCalculator(FakeComparator())
+        sut = RecurringCalculator(input, FakeComparator())
 
         expect = [Recurring(input, 0.293)]
-        actual = sut.find_recurrences(input)
+        actual = sut.find_recurrences()
         assert actual == expect
 
     def test_should_match_weekly_identical(self):
@@ -41,10 +41,10 @@ class TestRecurringCalculator:
             FakeTransaction("Netflix", "2020-10-14"),
             FakeTransaction("Netflix", "2020-10-21"),
         ]
-        sut = RecurringCalculator(FakeComparator())
+        sut = RecurringCalculator(input, FakeComparator())
 
         expect = [Recurring(input, 0.423)]
-        actual = sut.find_recurrences(input)
+        actual = sut.find_recurrences()
         assert actual == expect
 
     def test_not_should_match_three_mixed_dates(self):
@@ -53,10 +53,10 @@ class TestRecurringCalculator:
             FakeTransaction("Netflix", "2020-09-15"),
             FakeTransaction("Netflix", "2020-08-25"),
         ]
-        sut = RecurringCalculator(FakeComparator())
+        sut = RecurringCalculator(input, FakeComparator())
 
         expect = []
-        actual = sut.find_recurrences(input)
+        actual = sut.find_recurrences()
         assert actual == expect
 
     def test_not_should_match_two_dates(self):
@@ -64,30 +64,29 @@ class TestRecurringCalculator:
             FakeTransaction("Netflix", "2020-10-10"),
             FakeTransaction("Netflix", "2020-09-10"),
         ]
-        sut = RecurringCalculator(FakeComparator())
+        sut = RecurringCalculator(input, FakeComparator())
 
         expect = []
-        actual = sut.find_recurrences(input)
+        actual = sut.find_recurrences()
         assert actual == expect
 
     def test_should_not_include_uniques(self):
         other = [FakeComparable("Other")]
-        sut = RecurringCalculator()
+        sut = RecurringCalculator(other)
         expect = []
-        actual = sut.find_recurrences(other)
+        actual = sut.find_recurrences()
 
         assert actual == expect
 
     def test_should_not_recalculate_same_values(self):
         # WHEN: Calculating similarities with two similar items
         fake_comparator = FakeComparator()
-        sut = RecurringCalculator(fake_comparator)
-        sut.find_recurrences(
-            [
-                FakeTransaction("Netflix", "2020-10-10"),
-                FakeTransaction("netflix", "2020-09-10"),
-            ]
-        )
+        trans = [
+            FakeTransaction("Netflix", "2020-10-10"),
+            FakeTransaction("netflix", "2020-09-10"),
+        ]
+        sut = RecurringCalculator(trans, fake_comparator)
+        sut.find_recurrences()
 
         # THEN: We should only calculate comparison once
         assert fake_comparator.times_called == 1

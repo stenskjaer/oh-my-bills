@@ -23,17 +23,24 @@ class Recurring:
 class RecurringCalculator:
     """Calculates """
 
-    def __init__(self, comparator: Comparator = TrigramSimilarity()) -> None:
+    def __init__(
+        self,
+        transactions: List[Comparable],
+        comparator: Comparator = TrigramSimilarity(),
+    ) -> None:
+        self.transactions = transactions
         self.comparator = comparator
 
-    def find_recurrences(self, transactions: List[Comparable]) -> List[Recurring]:
+    def find_recurrences(
+        self,
+    ) -> List[Recurring]:
         """Determines which entries are likely to be recurring payments and
         returns them.
 
         We only calculate recurrence on collections larger than two, as we can't
         estimate a recurrence with only two observations.
         """
-        similar = self._find_similar(transactions)
+        similar = self._find_similar(self.transactions)
 
         recurring: List[Recurring] = []
         for group in similar:
