@@ -15,6 +15,9 @@ mpld3 = "*"
 sns = "*"
 seaborn = "*"
 python-dateutil = "*"
+flask = "*"
+flask-restful = "*"
+ab = "*"
 
 [dev-packages]
 mypy = "*"
