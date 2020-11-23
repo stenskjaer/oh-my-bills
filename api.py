@@ -34,7 +34,7 @@ class GetRecurrences(Resource):
     def get():
         calculator = RecurringCalculator(transactions)
         recurring = calculator.find_recurrences()
-        return jsonify({"data": [el.serialize() for el in recurring]})
+        return jsonify({"data": recurring})
 
 
 # Api resource routing
