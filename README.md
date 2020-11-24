@@ -8,7 +8,7 @@ This is written in Python as a good prototyping language, but other languages co
 **This is a proof of concept**. It is meant to demonstrate the idea, and is not production ready. 
 
 This means: 
-1. That it probably won't work correctly with bank statement data from any bank. 
+1. That it probably won't work correctly with bank statement data from every bank. 
 2. That it is not yet optimized to work under heavy load or with very large files.
 3. That there is not yet any documentation for the api. 
 
